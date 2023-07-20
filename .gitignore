@@ -1,5 +1,6 @@
 images/
 annotations/
+coco/
 results/
 external/
 export_png/

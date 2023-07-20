@@ -17,7 +17,9 @@ import numpy as np
 import skimage.io
 import matplotlib.pyplot as plt
 
-def cocoStuffDemo(dataDir='../..', dataType='train2017'):
+
+
+def cocoStuffDemo(dataDir='', dataType='train2017'):
     '''
     A preview script that shows how to use the COCO API.
     :param dataDir: location of the COCO root folder
@@ -32,17 +34,17 @@ def cocoStuffDemo(dataDir='../..', dataType='train2017'):
     cocoGt = COCO(annFile)
 
     # Display COCO stuff categories and supercategories
-    categories = cocoGt.loadCats(cocoGt.getCatIds())
+    categories = cocoGt.loadCats(cocoGt.getCatIds(catNms=['tree']))
     categoryNames = [cat['name'] for cat in categories]
-    print 'COCO Stuff leaf categories: \n', ' '.join(categoryNames)
+    print('COCO Stuff leaf categories: \n', ' '.join(categoryNames))
 
     superCategoryNames = sorted(set([cat['supercategory'] for cat in categories]))
-    print 'COCO Stuff super categories: \n', ' '.join(superCategoryNames)
+    print('COCO Stuff super categories: \n', ' '.join(superCategoryNames))
 
     # Load info for a random image
-    imgIds = cocoGt.getImgIds()
+    imgIds = cocoGt.getImgIds(catIds=cocoGt.getCatIds(catNms=['tree']))
     imgId = imgIds[np.random.randint(0, len(imgIds))]
-    print 'Processing image', imgId, '\n' 
+    print('Processing image', imgId, '\n') 
     img = cocoGt.loadImgs(imgId)[0]
 
     # Load and display image
@@ -64,4 +66,5 @@ def cocoStuffDemo(dataDir='../..', dataType='train2017'):
     plt.show()
 
 if __name__ == "__main__":
-    cocoStuffDemo()
+    data_dir = '/path/to/dir'
+    cocoStuffDemo(dataDir=data_dir)

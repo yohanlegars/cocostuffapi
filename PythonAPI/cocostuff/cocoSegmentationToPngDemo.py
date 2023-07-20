@@ -20,13 +20,17 @@ __author__ = 'hcaesar'
 # Licensed under the Simplified BSD License [see coco/license.txt]
 
 import os
+import sys
+root_dir = '/path/to/parent/dir'
+sys.path.insert(0, 'root_dir')
+
 from pycocotools import mask
 from pycocotools.cocostuffhelper import cocoSegmentationToPng
 from pycocotools.coco import COCO
 import skimage.io
 import matplotlib.pyplot as plt
 
-def cocoSegmentationToPngDemo(dataDir='../..', dataTypeAnn='train2017', dataTypeRes='examples', \
+def cocoSegmentationToPngDemo(dataDir='path/to/dir', dataTypeAnn='train2017', dataTypeRes='examples', \
         pngFolderName='export_png', isAnnotation=True, exportImageLimit=10):
     '''
     Converts COCO segmentation .json files (GT or results) to one .png file per image.
@@ -65,7 +69,7 @@ def cocoSegmentationToPngDemo(dataDir='../..', dataTypeAnn='train2017', dataType
 
     # Convert each image to a png
     imgCount = len(imgIds)
-    for i in xrange(0, imgCount):
+    for i in range(0, imgCount):
         imgId = imgIds[i]
         imgName = coco.loadImgs(ids=imgId)[0]['file_name'].replace('.jpg', '')
         print('Exporting image %d of %d: %s' % (i+1, imgCount, imgName))
@@ -88,4 +92,5 @@ def cocoSegmentationToPngDemo(dataDir='../..', dataTypeAnn='train2017', dataType
     plt.show()
 
 if __name__ == "__main__":
-    cocoSegmentationToPngDemo()
+    data_dir = 'path/to/dir'
+    cocoSegmentationToPngDemo(dataDir=data_dir)
